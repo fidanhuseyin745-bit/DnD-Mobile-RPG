@@ -1,0 +1,12 @@
+{
+  "name": "Mythic Table - Mobil RPG",
+  "short_name": "Mythic Table",
+  "description": "Karakterini oluştur, zarlarını at ve maceranı kaydet.",
+  "lang": "tr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101116",
+  "theme_color": "#171923",
+  "icons": []
+}

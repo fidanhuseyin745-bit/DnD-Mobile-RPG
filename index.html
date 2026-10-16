@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171923">
+  <meta name="description" content="Karakterini oluştur, zarlarını at ve maceranı kaydet.">
+  <title>Mythic Table — Mobil RPG</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Mythic Table ana sayfa">
+      <span class="brand-icon">✦</span>
+      <span>MYTHIC <b>TABLE</b><small>MOBİL FANTASTİK RPG</small></span>
+    </a>
+    <button id="themeBtn" class="icon-btn" aria-label="Temayı değiştir">☼</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">✧ MACERAN BAŞLIYOR ✧</span>
+        <h1>Kendi efsaneni<br><span>yaz.</span></h1>
+        <p>Karakterini hazırla, kader zarlarını at ve yolculuğunu kaydet.</p>
+        <a href="#character" class="primary-link">Karakter oluştur ↓</a>
+      </div>
+      <div class="hero-emblem" aria-hidden="true">⚔</div>
+    </section>
+
+    <nav class="quick-nav" aria-label="Bölümler">
+      <a href="#character">♙ Karakter</a>
+      <a href="#dice">⚄ Zarlar</a>
+      <a href="#journal">▤ Günlük</a>
+    </nav>
+
+    <section class="section" id="character">
+      <div class="section-heading">
+        <div><span class="eyebrow">KAHRAMANINI TANI</span><h2>Karakter sayfası</h2></div>
+        <span class="section-symbol">♙</span>
+      </div>
+      <form id="characterForm" class="panel">
+        <div class="field">
+          <label for="heroName">Karakter adı</label>
+          <input id="heroName" maxlength="40" placeholder="Örn. Arin Gölgeyeli" required>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="ancestry">Soy</label>
+            <select id="ancestry">
+              <option>İnsan</option><option>Elf</option><option>Cüce</option>
+              <option>Buçukluk</option><option>Ejderdoğan</option>
+              <option>Gnome</option><option>Ork</option><option>Tiefling</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="heroClass">Sınıf</label>
+            <select id="heroClass">
+              <option>Savaşçı</option><option>Büyücü</option><option>Paladin</option>
+              <option>Hırsız</option><option>Rahip</option><option>Korucu</option>
+              <option>Ozan</option><option>Druid</option><option>Barbar</option>
+              <option>Keşiş</option><option>Büyücü Soylu</option><option>Warlock</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="background">Geçmiş</label>
+            <input id="background" maxlength="50" placeholder="Örn. Gezgin">
+          </div>
+          <div class="field">
+            <label for="level">Seviye</label>
+            <input id="level" type="number" min="1" max="20" value="1" required>
+          </div>
+          <div class="field">
+            <label for="hp">Can puanı (HP)</label>
+            <input id="hp" type="number" min="0" max="999" value="10" required>
+          </div>
+          <div class="field">
+            <label for="armor">Zırh sınıfı (AC)</label>
+            <input id="armor" type="number" min="0" max="99" value="10" required>
+          </div>
+        </div>
+        <button class="primary-btn" type="submit">✦ Karakteri kaydet</button>
+        <p id="characterStatus" class="status" role="status"></p>
+      </form>
+
+      <article id="characterCard" class="character-card hidden">
+        <div class="avatar">♙</div>
+        <div class="character-info">
+          <span class="eyebrow">MACERACI KARTI</span>
+          <h3 id="cardName">Kahraman</h3>
+          <p id="cardDetails"></p>
+          <div class="stats">
+            <span>❤ HP <b id="cardHp">10</b></span>
+            <span>🛡 AC <b id="cardArmor">10</b></span>
+            <span>✦ Seviye <b id="cardLevel">1</b></span>
+          </div>
+        </div>
+        <button id="editCharacter" class="icon-btn" aria-label="Karakteri düzenle">✎</button>
+      </article>
+    </section>
+
+    <section class="section" id="dice">
+      <div class="section-heading">
+        <div><span class="eyebrow">ŞANSINI DENE</span><h2>Kader zarları</h2></div>
+        <span class="section-symbol">⚄</span>
+      </div>
+      <div class="panel">
+        <label class="field-label">Zarını seç</label>
+        <div class="dice-grid" id="diceGrid">
+          <button class="die selected" data-sides="20">D20<small>Kontrol</small></button>
+          <button class="die" data-sides="4">D4<small>Küçük</small></button>
+          <button class="die" data-sides="6">D6<small>Klasik</small></button>
+          <button class="die" data-sides="8">D8<small>Hasar</small></button>
+          <button class="die" data-sides="10">D10<small>Yüzdelik</small></button>
+          <button class="die" data-sides="12">D12<small>Ağır</small></button>
+          <button class="die" data-sides="100">D100<small>Yüzde</small></button>
+        </div>
+        <div class="modifier-row">
+          <label for="modifier">Değiştirici</label>
+          <input id="modifier" type="number" min="-100" max="100" value="0">
+        </div>
+        <div class="roll-result" aria-live="polite">
+          <span>SONUÇ</span>
+          <strong id="rollNumber">—</strong>
+          <p id="rollBreakdown">Bir zar seç ve at.</p>
+        </div>
+        <button id="rollBtn" class="primary-btn">⚄ Zarı at</button>
+        <div class="history-heading"><h3>Son atışlar</h3><button id="clearDice" class="text-btn">Temizle</button></div>
+        <ul id="diceHistory" class="history"><li class="empty">Henüz zar atılmadı.</li></ul>
+      </div>
+    </section>
+
+    <section class="section" id="journal">
+      <div class="section-heading">
+        <div><span class="eyebrow">HİKÂYENİ UNUTMA</span><h2>Macera günlüğü</h2></div>
+        <span class="section-symbol">▤</span>
+      </div>
+      <form id="journalForm" class="panel">
+        <div class="field">
+          <label for="entryTitle">Kayıt başlığı</label>
+          <input id="entryTitle" maxlength="80" placeholder="Örn. Kayıp tapınak" required>
+        </div>
+        <div class="field">
+          <label for="entryText">Neler yaşandı?</label>
+          <textarea id="entryText" rows="4" maxlength="3000" placeholder="Görevleri, bulduğun eşyaları ve önemli karakterleri yaz..." required></textarea>
+        </div>
+        <button class="primary-btn" type="submit">＋ Günlüğe ekle</button>
+      </form>
+      <div id="journalEntries" class="journal-list"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><span class="eyebrow">VERİLERİN</span><h2>Kayıt ve yedekleme</h2></div>
+      </div>
+      <div class="panel backup-panel">
+        <p>Karakterini, zar geçmişini ve günlük kayıtlarını JSON dosyası olarak dışa aktarabilirsin.</p>
+        <button id="exportBtn" class="secondary-btn">↓ Verileri dışa aktar</button>
+        <label class="secondary-btn import-label">↑ Yedekten içe aktar
+          <input id="importFile" type="file" accept=".json,application/json" hidden>
+        </label>
+        <p class="muted">Veriler bu tarayıcıda saklanır. Tarayıcı verilerini silersen kayıtların kaybolabilir; yedek al.</p>
+      </div>
+    </section>
+
+    <footer>
+      <span class="brand-icon">✦</span>
+      <p>MYTHIC TABLE</p>
+      <small>Bağımsız bir hayran projesi. Resmî D&D ürünü değildir.</small>
+    </footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
